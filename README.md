@@ -1,1 +1,1 @@
-# ccid-terraform-aws-network
+# terraform-aws-network
