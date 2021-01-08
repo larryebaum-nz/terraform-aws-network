@@ -8,7 +8,7 @@ variable "az_count" {
   description = "Number of availability zones to use within the region"
 }
 variable "prefix" {
-  default = "tfe"
+  default = "ccid"
 }
 
 variable "availability_zone" {
@@ -51,5 +51,5 @@ variable "purpose" {
 
 variable "customer" {
   description = "Billable Customer"
-  default = ""
+  default = "CircleCI"
 }
