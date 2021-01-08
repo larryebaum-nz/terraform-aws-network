@@ -15,10 +15,6 @@ variable "availability_zone" {
   default = "us-west-2a"
 }
 
-variable "aws_region" {
-  default = "us-west-2"
-}
-
 variable "instance_type" {
   description = "type of EC2 instance to provision."
   default = "t2.micro"
