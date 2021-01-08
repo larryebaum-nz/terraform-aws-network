@@ -48,21 +48,18 @@ resource "aws_route" "internet_access" {
   route_table_id         = aws_vpc.main.main_route_table_id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.gw.id
-  tags = local.common_tags
 }
 
 resource "aws_eip" "gw" {
   count      = var.az_count
   vpc        = true
   depends_on = [aws_internet_gateway.gw]
-  tags = local.common_tags
 }
 
 resource "aws_nat_gateway" "gw" {
   count         = var.az_count
   subnet_id     = element(aws_subnet.public.*.id, count.index)
   allocation_id = element(aws_eip.gw.*.id, count.index)
-  tags = local.common_tags
 }
 
 resource "aws_route_table" "private" {
@@ -73,12 +70,10 @@ resource "aws_route_table" "private" {
     cidr_block     = "0.0.0.0/0"
     nat_gateway_id = element(aws_nat_gateway.gw.*.id, count.index)
   }
-  tags = local.common_tags
 }
 
 resource "aws_route_table_association" "private" {
   count          = var.az_count
   subnet_id      = element(aws_subnet.private.*.id, count.index)
   route_table_id = element(aws_route_table.private.*.id, count.index)
-  tags = local.common_tags
 }
